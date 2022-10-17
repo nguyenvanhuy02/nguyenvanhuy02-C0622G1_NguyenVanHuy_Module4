@@ -15,8 +15,8 @@
   <h1>Calculated</h1>
   <table>
     <tr>
-      <input type="number" name="numberOne" placeholder="Enter number one">
-      <input type="number" name="numberTwo" placeholder="Enter number two">
+      <input type="number" name="numberOne" placeholder="Enter number one" required>
+      <input type="number" name="numberTwo" placeholder="Enter number two" required>
     </tr>
     <br>
     <tr>
