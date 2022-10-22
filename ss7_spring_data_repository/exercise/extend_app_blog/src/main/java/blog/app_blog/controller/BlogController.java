@@ -35,23 +35,23 @@ public class BlogController {
         return "/home";
     }
 
-//    @GetMapping("/list")
-//    public String list(@RequestParam(value = "page" , defaultValue = "0") int page , Model model,
-//                       @PageableDefault(value = 1) Pageable pageable) {
-//        Sort sort = Sort.by("dateCreate").ascending();
-//        Page<Blog> blogPage = blogService.findAll(PageRequest.of(page,5,sort));
-//        model.addAttribute("blogs", blogPage);
-//        return "/blog/list";
-//    }
     @GetMapping("/list")
-    public String searchByName(@RequestParam (value = "name" , defaultValue = "") String name ,
-                                @RequestParam(value = "category" ,defaultValue = "") String category,
-                               @PageableDefault(value = 5) Pageable pageable, Model model) {
-        Page<Blog> blogs = blogService.findName(name,category,pageable);
-        model.addAttribute("blogs", blogs);
-        model.addAttribute("name",name);
+    public String list(@RequestParam(value = "page" , defaultValue = "0") int page , Model model,
+                       @PageableDefault(value = 1) Pageable pageable) {
+        Sort sort = Sort.by("dateCreate").ascending();
+        Page<Blog> blogPage = blogService.findAll(PageRequest.of(page,5,sort));
+        model.addAttribute("blogs", blogPage);
         return "/blog/list";
     }
+//    @GetMapping("/list")
+//    public String searchByName(@RequestParam (value = "name" , defaultValue = "") String name ,
+//                                @RequestParam(value = "category" ,defaultValue = "") String category,
+//                               @PageableDefault(value = 5) Pageable pageable, Model model) {
+//        Page<Blog> blogs = blogService.findName(name,category,pageable);
+//        model.addAttribute("blogs", blogs);
+//        model.addAttribute("name",name);
+//        return "/blog/list";
+//    }
 
     @GetMapping("/create")
     public String create(Model model) {
