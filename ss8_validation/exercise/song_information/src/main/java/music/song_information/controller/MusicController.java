@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -43,6 +44,33 @@ public class MusicController {
             BeanUtils.copyProperties(musicDto,music);
             musicService.save(music);
             redirect.addFlashAttribute("mess","Thêm mới thành công !");
+            return "redirect:/list";
+        }
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEdit(@PathVariable int id, Model model){
+        model.addAttribute("music",musicService.findById(id));
+        return "/music/edit";
+    }
+
+//    @PostMapping("/update")
+//    public String update(Music music , RedirectAttributes redirect){
+//        musicService.save(music);
+//        redirect.addFlashAttribute("mess", "Chỉnh sửa thành công!");
+//        return "redirect:/list";
+//    }
+    @PostMapping("/update")
+    public String update(@Validated @ModelAttribute("musicList") MusicDto musicDto,
+                       BindingResult bindingResult , RedirectAttributes redirect){
+        new MusicDto().validate(musicDto,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            return "/music/create";
+        }else {
+            Music music = new Music();
+            BeanUtils.copyProperties(musicDto,music);
+            musicService.save(music);
+            redirect.addFlashAttribute("mess","Chỉnh sửa thành công !");
             return "redirect:/list";
         }
     }

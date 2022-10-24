@@ -14,12 +14,14 @@
         <th>Tên bài hát</th>
         <th>Nghệ sĩ thể hiện</th>
         <th>Thể loại nhạc</th>
+        <th>Chỉnh sửa</th>
     </tr>
     <tr th:each="music , rowStat : ${musicList}">
         <td th:text="${rowStat.count}"></td>
         <td th:text="${music.getNameMusic()}"></td>
         <td th:text="${music.getNameArtist()}"></td>
         <td th:text="${music.getCategory()}"></td>
+        <td><a th:href="@{/{id}/edit(id=${music.getId()})}">Chỉnh sửa</a></td>
     </tr>
 </table>
 </body>
