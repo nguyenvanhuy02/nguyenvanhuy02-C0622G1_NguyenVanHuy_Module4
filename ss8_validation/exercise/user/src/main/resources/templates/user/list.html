@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+    <title>Form</title>
+</head>
+<body>
+<h3>Danh sách </h3>
+<a th:href="@{/create}">Thêm mới</a>
+
+<table id = "user" class="table table-sm , bg-body">
+    <tr class="bg-warning">
+        <th>STT</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="user , rowStat : ${userList}">
+        <td th:text="${rowStat.count}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+    </tr>
+</table>
+</body>
+</html>

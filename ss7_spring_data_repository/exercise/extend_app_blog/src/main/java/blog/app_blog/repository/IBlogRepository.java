@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IBlogRepository extends JpaRepository<Blog , Integer> {
 
-    @Query(value = "SELECT * FROM app_blog.blog where author like %:name% and category =:category " , nativeQuery = true)
+    @Query(value = "SELECT * FROM app_blog.blog where author like %:name% and category like %:category " , nativeQuery = true)
     Page<Blog> findByNameAndByCategory(@Param("name") String name , @Param("category") String category , Pageable pageable);
 }

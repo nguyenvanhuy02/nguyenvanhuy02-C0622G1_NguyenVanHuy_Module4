@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a href="/create">Thêm mới</a>
+</p>
+<table id = "user" class="table table-sm , bg-body">
+    <tr>
+        <th>STT</th>
+        <th>Tên bài hát</th>
+        <th>Nghệ sĩ thể hiện</th>
+        <th>Thể loại nhạc</th>
+    </tr>
+    <tr th:each="music , rowStat : ${musicList}">
+        <td th:text="${rowStat.count}"></td>
+        <td th:text="${music.getNameMusic()}"></td>
+        <td th:text="${music.getNameArtist()}"></td>
+        <td th:text="${music.getCategory()}"></td>
+    </tr>
+</table>
+</body>
+</html>

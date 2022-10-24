@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Đăng ký </h3>
+<div id="form">
+    <form th:action="@{/save}" th:object="${userDto}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <span>Name</span>
+            <input type="text" th:field="*{name}" required/>
+            <p style="color:red"
+            th:errors="*{name}"
+            th:if="${#fields.hasErrors('name')}"></p>
+        </div>
+        <div>
+            <span>Age</span>
+            <input type="text" th:field="*{age}" required/>
+            <p style="color:red"
+               th:errors="*{age}"
+               th:if="${#fields.hasErrors('age')}"></p>
+        </div>
+        <div>
+            <span>Email</span>
+            <input type="text" th:field="*{email}" required/>
+            <p style="color:red"
+               th:errors="*{email}"
+               th:if="${#fields.hasErrors('email')}"></p>
+        </div>
+        <div>
+            <span>Phone number</span>
+            <input type="text" th:field="*{phoneNumber}" required/>
+            <p style="color:red"
+               th:errors="*{phoneNumber}"
+               th:if="${#fields.hasErrors('phoneNumber')}"></p>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+</body>
+</html>

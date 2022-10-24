@@ -43,38 +43,38 @@
     </thead>
     <tbody>
     <tr th:each="blog , rowStat : ${blogs}">
-        <td th:text="${rowStat.count}"></td>
+        <td th:text="${blogs.number*5+rowStat.count}"></td>
         <td th:text="${blog.getAuthor()}"></td>
         <td th:text="${blog.getContent()}"></td>
         <td th:text="${blog.getCategory().getName()}"></td>
         <td th:text="${blog.getDateCreate}"></td>
         <td><a th:href="@{/blog/{id}/edit(id=${blog.getId()})}" class="btn btn-primary">Edit</a></td>
-        <td>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                Delete
-            </button>
+        <td><a th:href="@{/blog/{id}/delete(id=${blog.getId()})}" class="btn btn-secondary" >Delete</a></td>
+<!--        <td>-->
+<!--            &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">-->
+<!--                Delete-->
+<!--            </button>-->
 
-            <!-- Modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" style="color: #000">Xoá nhân viên</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style="color: #000" >
-                            Do you want to delete?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a th:href="@{/blog/{id}/delete(id=${blog.getId()})}" class="btn btn-secondary" >Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </td>
+<!--            &lt;!&ndash; Modal &ndash;&gt;-->
+<!--            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                <div class="modal-dialog">-->
+<!--                    <div class="modal-content">-->
+<!--                        <div class="modal-header">-->
+<!--                            <h5 class="modal-title" id="exampleModalLabel" style="color: #000">Xoá nhân viên</h5>-->
+<!--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                        </div>-->
+<!--                        <div class="modal-body" style="color: #000" >-->
+<!--                            Do you want to delete?-->
+<!--                        </div>-->
+<!--                        <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                            <a th:href="@{/blog/{id}/delete(id=${blog.getId()})}" class="btn btn-secondary" >Delete</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </td>-->
     </tr>
     </tbody>
 </table>
