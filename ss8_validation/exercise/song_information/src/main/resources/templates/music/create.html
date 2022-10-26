@@ -5,26 +5,27 @@
     <title>Title</title>
 </head>
 <body>
+<h3>Thêm mới </h3>
 <div id="form">
     <form th:action="@{/save}" th:object="${musicList}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <div>
             <span>Tên bài hát</span>
-            <input type="text" th:field="*{nameMusic}" required/>
+            <input type="text" th:field="*{nameMusic}" />
             <p style="color:red"
                th:errors="*{nameMusic}"
                th:if="${#fields.hasErrors('nameMusic')}"></p>
         </div>
         <div>
             <span>Nghệ sĩ thể hiện	</span>
-            <input type="text" th:field="*{NameArtist}" required/>
+            <input type="text" th:field="*{NameArtist}" />
             <p style="color:red"
                th:errors="*{NameArtist}"
                th:if="${#fields.hasErrors('NameArtist')}"></p>
         </div>
         <div>
             <span>Thể loại nhạc</span>
-            <input type="text" th:field="*{category}" required/>
+            <input type="text" th:field="*{category}" />
             <p style="color:red"
                th:errors="*{category}"
                th:if="${#fields.hasErrors('category')}"></p>

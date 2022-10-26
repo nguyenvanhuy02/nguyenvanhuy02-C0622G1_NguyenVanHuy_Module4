@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+    <title>Form</title>
+</head>
+<body>
+<h3>Danh sách </h3>
+
+<div  class="notify"style="color: red ; text-align: center">
+    <div th:if="${mess}">
+        <span th:text="${mess}"></span>
+    </div>
+</div>
+<form action="/update" method="post" >
+    <input type="text" name="pay">
+    <button type="submit">Pay</button>
+</form>
+
+
+<table id = "user" class="table table-sm , bg-body">
+    <tr class="bg-warning">
+        <th>STT</th>
+        <th>Name</th>
+        <th>Count</th>
+        <th>Oder</th>
+    </tr>
+    <tr th:each="book , rowStat : ${bookList}">
+        <td th:text="${rowStat.count}"></td>
+        <td th:text="${book.getName()}"></td>
+        <td th:text="${book.getCount()}"></td>
+        <td><a th:href="@{/{id}/oder(id=${book.getId()})}" class="btn btn-primary">Oder</a></td>
+    </tr>
+</table>
+</body>
+</html>

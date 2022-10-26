@@ -6,33 +6,33 @@
 </head>
 <body>
 <h3>Đăng ký </h3>
-<div id="form">
+<div  id="form">
     <form th:action="@{/save}" th:object="${userDto}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <div>
             <span>Name</span>
-            <input type="text" th:field="*{name}" required/>
+            <input type="text" th:field="*{name}" />
             <p style="color:red"
             th:errors="*{name}"
             th:if="${#fields.hasErrors('name')}"></p>
         </div>
         <div>
             <span>Age</span>
-            <input type="text" th:field="*{age}" required/>
+            <input type="text" th:field="*{age}" />
             <p style="color:red"
                th:errors="*{age}"
                th:if="${#fields.hasErrors('age')}"></p>
         </div>
         <div>
             <span>Email</span>
-            <input type="text" th:field="*{email}" required/>
+            <input type="text" th:field="*{email}" />
             <p style="color:red"
                th:errors="*{email}"
                th:if="${#fields.hasErrors('email')}"></p>
         </div>
         <div>
             <span>Phone number</span>
-            <input type="text" th:field="*{phoneNumber}" required/>
+            <input type="text" th:field="*{phoneNumber}" />
             <p style="color:red"
                th:errors="*{phoneNumber}"
                th:if="${#fields.hasErrors('phoneNumber')}"></p>

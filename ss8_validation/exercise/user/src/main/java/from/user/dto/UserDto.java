@@ -3,20 +3,23 @@ package from.user.dto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 public class UserDto implements Validator {
 
     private int id;
-
+    @NotBlank(message = "Không được để trống !")
     private String name;
-
+    @Valid
+    @NotNull
     private Integer age;
-
+    @NotBlank(message = "Không được để trống !")
     private String email;
-
+    @NotBlank(message = "Không được để trống !")
     private String phoneNumber;
 
     public UserDto() {
@@ -79,17 +82,18 @@ public class UserDto implements Validator {
     public void validate(Object target, Errors errors) {
         UserDto userDto = (UserDto) target;
 
-        if (!userDto.getName().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{5,50}$")){
+        if (!userDto.getName().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{5,50}$") && !userDto.getName().equals("")){
             errors.rejectValue("name","name.forbidden","Tên phải đúng định dạng !");
         }
-        if (!(userDto.getAge() >= 18)){
-            errors.rejectValue("age","","Phải trên 18 tuổi!");
+        if ( !(userDto.getAge() >= 18) && !(userDto.getAge() == null)){
+            errors.rejectValue("age","age.forbidden","Phải trên 18 tuổi!");
         }
-        if (!userDto.getEmail().matches("[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)")){
-            errors.rejectValue("email","","Không đúng định dạng !");
+
+        if (!userDto.getEmail().matches("[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)") && !userDto.getEmail().equals("")){
+            errors.rejectValue("email","email.forbidden","Không đúng định dạng !");
         }
-        if (!userDto.getPhoneNumber().matches("[0][0-9]{9}")){
-            errors.rejectValue("phoneNumber","","Số điện thoại không đúng định dạng !");
+        if (!userDto.getPhoneNumber().matches("[0][0-9]{9}") && !userDto.getPhoneNumber().equals("")){
+            errors.rejectValue("phoneNumber","phone.forbidden","Số điện thoại không đúng định dạng !");
         }
     }
 }
