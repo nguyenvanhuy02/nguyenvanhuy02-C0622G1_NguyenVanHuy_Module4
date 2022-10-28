@@ -18,7 +18,7 @@ public class Oder {
 
 
 
-    @ManyToMany(mappedBy = "list")
+    @ManyToMany(mappedBy = "list",cascade = CascadeType.ALL)
     List<Book> books ;
 
     public List<Book> getBooks() {
