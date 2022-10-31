@@ -1,35 +1,25 @@
-package blog.app_blog.model;
+package blog.app_blog.dto;
 
+import blog.app_blog.model.Blog;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
-@Entity
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CategoryDto {
     private int id;
     private String name;
 
     @OneToMany(mappedBy = "category")
-    @JsonBackReference
     private Set<Blog> blogs;
 
-    public Set<Blog> getBlogs() {
-        return blogs;
+    public CategoryDto() {
     }
 
-    public void setBlogs(Set<Blog> blogs) {
-        this.blogs = blogs;
-    }
-
-    public Category() {
-    }
-
-    public Category(int id, String name) {
+    public CategoryDto(int id, String name, Set<Blog> blogs) {
         this.id = id;
         this.name = name;
+        this.blogs = blogs;
     }
 
     public int getId() {
@@ -46,5 +36,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Blog> getBlogs() {
+        return blogs;
+    }
+
+    public void setBlogs(Set<Blog> blogs) {
+        this.blogs = blogs;
     }
 }

@@ -9,7 +9,7 @@ public class Product {
     private long id;
     private String name;
     private String image;
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "TEXT")
     private String description;
     private long price;
     private short discount;
