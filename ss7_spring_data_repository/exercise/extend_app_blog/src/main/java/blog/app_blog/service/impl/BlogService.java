@@ -51,5 +51,10 @@ public class BlogService implements IBlogService {
         return blogRepository.findByNameAndByCategory(name , category , pageable);
     }
 
+    @Override
+    public List<Blog> findByAuthorContaining(String name) {
+        return blogRepository.findByAuthorContaining(name);
+    }
+
 
 }

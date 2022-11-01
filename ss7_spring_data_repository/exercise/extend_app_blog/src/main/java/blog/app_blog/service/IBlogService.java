@@ -14,4 +14,5 @@ public interface IBlogService {
     void remove(int id);
     Page<Blog> findAll(Pageable pageable);
     Page<Blog> findName(String name , String category,Pageable pageable);
+    List<Blog> findByAuthorContaining(String name);
 }

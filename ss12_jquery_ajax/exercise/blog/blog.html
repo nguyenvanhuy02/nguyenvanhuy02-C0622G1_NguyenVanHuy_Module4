@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.css">
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.js"></script>
+</head>
+<body>
+<h3 style="text-align: center">Danh sách blog</h3>
+
+
+<input type="text" id="author" name="name">
+<input type="button" id="search" value="Search">
+<input type="button" id="loading" value="Loading">
+<input type="number" id="numberPage"  value="0">
+
+
+
+<table id="blog" class="table table-sm , bg-body">
+    <thead>
+    <tr class="bg-warning">
+        <th>STT</th>
+        <th>Author</th>
+        <th>Content</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <span>Loading...</span>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+<script src="bootstrap-5.0.2-dist/js/bootstrap.js"></script>
+<script src="jquery-3.6.1.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        function init() {
+            setTimeout(function () {
+                $("tbody").empty();
+
+                $.ajax({
+                    url: "http://localhost:8080/api/blog/v1",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        let tr = [];
+                        for (let i = 0; i < data.length; i++) {
+                            tr.push("<tr>")
+                            tr.push("<td>" + (i+1) + "</td>");
+                            tr.push("<td>" + data[i].author + "</td>");
+                            tr.push("<td>" + data[i].content + "</td>");
+                            tr.push("<td>" + data[i].category.name + "</td>");
+                            tr.push("</tr>")
+                        }
+                        $("tbody").append(tr.join(""))
+                    }
+                })
+            }, 2000)
+        }
+
+        init();
+        $("#loading").click(function () {
+            $.ajax({
+                url: "http://localhost:8080/api/blog/v1/?page="+$("#numberPage").val(),
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    let tr = [];
+                    for (let i = 0; i < data.length; i++) {
+                        tr.push("<tr>")
+                        tr.push("<td>" + (i+1) + "</td>");
+                        tr.push("<td>" + data[i].author + "</td>");
+                        tr.push("<td>" + data[i].content + "</td>");
+                        tr.push("<td>" + data[i].dateCreate + "</td>");
+                        tr.push("</tr>")
+                    }
+                    $("tbody").append(tr.join(""))
+                    $("#numberPage").val(parseInt($("#numberPage").val()) + 1);
+                }
+            })
+        })
+
+
+
+        $("#search").click(function () {
+            $("tbody").empty();
+            let sn = $("#author").val();
+            $.ajax({
+                url: "http://localhost:8080/api/blog/v1/search?name="+sn,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    let tr = [];
+                    for (let i = 0; i < data.length; i++) {
+                        tr.push("<tr>")
+                        tr.push("<td>" + (i+1) + "</td>");
+                        tr.push("<td>" + data[i].author + "</td>");
+                        tr.push("<td>" + data[i].content + "</td>");
+                        tr.push("<td>" + data[i].dateCreate + "</td>");
+                        tr.push("</tr>")
+                    }
+                    $("tbody").append(tr.join(""))
+                }
+            })
+        })
+
+    })
+</script>
+</body>
+</html>

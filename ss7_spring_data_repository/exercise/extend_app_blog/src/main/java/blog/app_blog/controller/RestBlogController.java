@@ -5,12 +5,16 @@ import blog.app_blog.model.Blog;
 import blog.app_blog.service.IBlogService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/blog/v1")
 public class RestBlogController {
@@ -19,13 +23,21 @@ public class RestBlogController {
 
     //Lấy tài nguyên
     @GetMapping
-    public ResponseEntity<List<Blog>> getBlogList() {
-        List<Blog> blogList = blogService.findAll();
-        if (blogList.isEmpty()) {
+    public ResponseEntity<List<Blog>> getList(@PageableDefault(value = 5) Pageable pageable){
+        Page<Blog> blogPage = blogService.findAll(pageable);
+        if (blogPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(blogList, HttpStatus.OK);
+        return new ResponseEntity<>(blogPage.getContent(), HttpStatus.OK);
     }
+//    @GetMapping
+//    public ResponseEntity<List<Blog>> getBlogList() {
+//        List<Blog> blogList = blogService.findAll();
+//        if (blogList.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(blogList, HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity addBlog(@RequestBody BlogDto blogDto) {
@@ -61,4 +73,15 @@ public class RestBlogController {
         }
         return new ResponseEntity<>(blog, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Blog>> search(@RequestParam String name){
+        List<Blog> blogs = blogService.findByAuthorContaining(name);
+        if (blogs == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
+    }
+
+
 }
