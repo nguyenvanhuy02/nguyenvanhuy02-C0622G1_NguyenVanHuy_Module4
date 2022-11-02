@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,8 +13,11 @@
 <input type="text" id="author" name="name">
 <input type="button" id="search" value="Search">
 <input type="button" id="loading" value="Loading">
-<input type="number" id="numberPage"  value="0">
-
+<!--<input type="number" id="numberPage"  value="1" hidden>-->
+<!-- Button trigger modal -->
+<button id="show" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+    Create
+</button>
 
 
 <table id="blog" class="table table-sm , bg-body">
@@ -37,12 +40,66 @@
 </table>
 
 
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <span>Author</span>
+                    <input type="text" id="txtAuthor"/>
+                </div>
+                <div>
+                    <label>Category</label>
+                    <select id="txtCategory">
+                        <option>
+                            chọn
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label>Content</label>
+                    <input type="text" id="txtContent"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button"  class="btn btn-primary" id="btnCreate">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="bootstrap-5.0.2-dist/js/bootstrap.js"></script>
 <script src="jquery-3.6.1.min.js"></script>
 
 <script>
 
     $(document).ready(function () {
+        let number = 1;
+        $("#show").click(function (){
+            $("#txtCategory").empty()
+            $.ajax({
+                url: "http://localhost:8080/api/category/v1",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                    let op = [];
+                    for (let i = 0; i < data.length; i++) {
+                        op.push('<option'+' value="'+data[i].id+'">'+data[i].name + '</option>');
+                    }
+                    $("#txtCategory").append(op.join(""))
+                    console.log()
+                }
+            })
+        })
+
         function init() {
             setTimeout(function () {
                 $("tbody").empty();
@@ -66,11 +123,30 @@
                 })
             }, 2000)
         }
+        $("#btnCreate").click(function () {
+            console.log("ok")
+            let txtAuthor = $("#txtAuthor").val();
+            let txtContent = $("#txtContent").val();
+            let txtCategory = $("#txtCategory").val();
+            console.log(txtCategory)
+            $.ajax({
+                url: "http://localhost:8080/api/blog/v1",
+                type: "POST",
+                contentType : 'application/json; charset=utf-8',
+                data : JSON.stringify({'author': txtAuthor,'content': txtContent,category:{'id':txtCategory}}),
+                success : function () {
+                    $("#createModal").modal("hide");
+                    $("tbody").empty();
+                    $("tbody").append("Loading")
+                    init();
+                }
+            })
+        })
 
         init();
         $("#loading").click(function () {
             $.ajax({
-                url: "http://localhost:8080/api/blog/v1/?page="+$("#numberPage").val(),
+                url: "http://localhost:8080/api/blog/v1/?page="+number,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
@@ -81,11 +157,11 @@
                         tr.push("<td>" + (i+1) + "</td>");
                         tr.push("<td>" + data[i].author + "</td>");
                         tr.push("<td>" + data[i].content + "</td>");
-                        tr.push("<td>" + data[i].dateCreate + "</td>");
+                        tr.push("<td>" + data[i].category.name + "</td>");
                         tr.push("</tr>")
                     }
                     $("tbody").append(tr.join(""))
-                    $("#numberPage").val(parseInt($("#numberPage").val()) + 1);
+                    number+=1;
                 }
             })
         })

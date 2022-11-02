@@ -2,7 +2,9 @@ package blog.app_blog.controller;
 
 import blog.app_blog.dto.BlogDto;
 import blog.app_blog.model.Blog;
+import blog.app_blog.model.Category;
 import blog.app_blog.service.IBlogService;
+import blog.app_blog.service.ICategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +23,9 @@ import java.util.List;
 public class RestBlogController {
     @Autowired
     IBlogService blogService;
+
+    @Autowired
+    ICategoryService categoryService;
 
     //Lấy tài nguyên
     @GetMapping
@@ -40,7 +46,8 @@ public class RestBlogController {
 //    }
 
     @PostMapping
-    public ResponseEntity addBlog(@RequestBody BlogDto blogDto) {
+    public ResponseEntity addBlog(@RequestBody BlogDto blogDto , Model model) {
+        model.addAttribute("categoryList",categoryService.findAll());
         Blog blog = new Blog();
         BeanUtils.copyProperties(blogDto, blog);
         blogService.save(blog);
