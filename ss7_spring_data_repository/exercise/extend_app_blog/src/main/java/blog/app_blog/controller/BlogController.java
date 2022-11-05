@@ -22,7 +22,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("blog")
+@RequestMapping("")
 public class BlogController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class BlogController {
     @Autowired
     ICategoryService categoryService;
 
-    @GetMapping("")
+    @GetMapping("/home")
     public String home(){
         return "/home";
     }
@@ -65,7 +65,7 @@ public class BlogController {
         blog.setDateCreate(new Date(System.currentTimeMillis()));
         blogService.save(blog);
         redirect.addFlashAttribute("mess", "Thêm mới thành công!");
-        return "redirect:/blog/list";
+        return "redirect:/list";
     }
 
     @GetMapping("/{id}/edit")
@@ -80,14 +80,14 @@ public class BlogController {
         blog.setDateCreate(new Date(System.currentTimeMillis()));
         blogService.update(blog);
         redirect.addFlashAttribute("mess", "Chỉnh sửa thành công!");
-        return "redirect:/blog/list";
+        return "redirect:/list";
     }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable int id, RedirectAttributes redirect) {
         blogService.remove(id);
         redirect.addFlashAttribute("mess", "Xoá thành công!");
-        return "redirect:/blog/list";
+        return "redirect:/list";
     }
 
 //    @GetMapping("/search")
