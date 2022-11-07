@@ -1,4 +1,4 @@
-package com.case_study.dto.customer;
+package com.case_study.dto;
 
 import com.case_study.model.contract.Contract;
 import com.case_study.model.customer.CustomerType;

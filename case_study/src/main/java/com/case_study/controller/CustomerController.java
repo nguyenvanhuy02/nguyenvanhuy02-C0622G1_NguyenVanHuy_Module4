@@ -1,7 +1,8 @@
 package com.case_study.controller;
 
-import com.case_study.dto.customer.CustomerDto;
+import com.case_study.dto.CustomerDto;
 import com.case_study.model.customer.Customer;
+import com.case_study.model.customer.CustomerType;
 import com.case_study.repository.customer.IGenderRepository;
 import com.case_study.service.customer.ICustomerService;
 import com.case_study.service.customer.ICustomerTypeService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
@@ -27,6 +30,11 @@ public class CustomerController {
     @Autowired
     private IGenderRepository genderRepository;
 
+    @ModelAttribute("customerTypeList")
+    public List<CustomerType> customerTypes(){
+        return customerTypeService.findAll();
+    }
+
     @GetMapping
     public String showList(@RequestParam (value = "page" , defaultValue = "0") Integer page,
                             @RequestParam (name = "name",defaultValue = "") String name,
@@ -35,7 +43,7 @@ public class CustomerController {
                             @RequestParam (name = "status",defaultValue = "1") String status,
                             Model model  ){
         Sort sort = Sort.by("name").ascending();
-        model.addAttribute("customerTypeList", customerTypeService.findAll());
+//        model.addAttribute("customerTypeList", customerTypeService.findAll());
         model.addAttribute("name", name);
         model.addAttribute("email", email);
         model.addAttribute("customerTypeId", customerTypeId);
@@ -51,7 +59,7 @@ public class CustomerController {
 
     @GetMapping("/create")
     public String showCreate(Model model){
-        model.addAttribute("customerTypeList",customerTypeService.findAll());
+//        model.addAttribute("customerTypeList",customerTypeService.findAll());
         model.addAttribute("genderList",genderRepository.findAll());
         model.addAttribute("customerDto",new CustomerDto());
 
@@ -69,7 +77,7 @@ public class CustomerController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable int id , Model model){
-        model.addAttribute("customerTypeList",customerTypeService.findAll());
+//        model.addAttribute("customerTypeList",customerTypeService.findAll());
         model.addAttribute("genderList",genderRepository.findAll());
         model.addAttribute("customerDto",customerService.findById(id));
         return "/customer/edit";

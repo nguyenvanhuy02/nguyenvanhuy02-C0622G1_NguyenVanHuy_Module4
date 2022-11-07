@@ -16,17 +16,23 @@
         <span th:text="${mess}"></span>
     </div>
 </div>
-<p>
-    <a class="btn btn-primary" th:href="@{/facility/create}">
-        Thêm mới
+<li class="btn btn-primary">
+    <a style="color: white" class="nav-link dropdown-toggle" href="#" id="navbarEmployee" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Add facility
     </a>
-</p>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="/facility/create/villa">Villa</a></li>
+        <li><a class="dropdown-item" href="/facility/create/house">House</a></li>
+        <li><a class="dropdown-item" href="/facility/create/room">Room</a></li>
+    </ul>
+</li>
 <div>
     <form action="/facility">
-        <input style="width: 20%" type="text" name="name" placeholder="Name">
+        <input style="width: 20%" type="text" name="name" placeholder="Name" th:value="${name}">
 
         <select style="width: 20%" th:name="facilityType">
-            <option value=""  selected>Type</option>
+            <option th:if="${facilityType != ''}" th:value="${facilityType}" th:text="${facilityType}"></option>
+            <option value="">-All-</option>
             <option th:each="item : ${facilityTypeList}" th:value="${item.name}" th:text="${item.name}"></option>
         </select>
 
@@ -42,13 +48,9 @@
         <th>Area</th>
         <th>Cost</th>
         <th>Max people</th>
-        <th>Standard room</th>
-        <th>Description other convenience</th>
-        <th>Pool area</th>
-        <th>Number of floors</th>
-        <th>Facility free</th>
         <th>Rent type</th>
-        <th>Facility type</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -58,13 +60,9 @@
         <td th:text="${facility.getArea()}"></td>
         <td th:text="${facility.getCost()}"></td>
         <td th:text="${facility.getMaxPeople()}"></td>
-        <td th:text="${facility.getStandardRoom()}"></td>
-        <td th:text="${facility.getDescriptionOtherConvenience()}"></td>
-        <td th:text="${facility.getPoolArea()}"></td>
-        <td th:text="${facility.getNumberOfFloors()}"></td>
-        <td th:text="${facility.getFacilityFree()}"></td>
         <td th:text="${facility.getRentType().getName()}"></td>
-        <td th:text="${facility.getFacilityType().getName()}"></td>
+        <td><a th:href="@{facility/{id}/edit(id=${facility.getId()})}" class="btn btn-primary">Edit</a></td>
+        <td><a th:href="@{facility/{id}/delete(id=${facility.getId()})}" class="btn btn-primary">Delete</a></td>
     </tr>
     </tbody>
 </table>

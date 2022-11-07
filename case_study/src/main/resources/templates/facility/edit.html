@@ -16,7 +16,7 @@
     </a>
 </p>
 <div id="form">
-    <form th:action="@{/facility/save}" th:object="${facilityDto}" method="post">
+    <form th:action="@{/facility/update}" th:object="${facilityDto}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <div>
             <span>Name</span>
@@ -34,7 +34,6 @@
             <span>	Number of floors</span>
             <input type="text" th:field="*{numberOfFloors}"/>
         </div>
-
         <div>
             <span>Max people</span>
             <input type="text" th:field="*{maxPeople}"/>

@@ -19,4 +19,14 @@ public class FacilityService implements IFacilityService {
     public Page<Facility> findAll(String nameSearch, String facilityType, Pageable pageable) {
         return facilityRepository.findAllByNameAndType(nameSearch,facilityType,pageable);
     }
+
+    @Override
+    public void save(Facility facility) {
+        facilityRepository.save(facility);
+    }
+
+    @Override
+    public Facility findById(Integer id) {
+        return facilityRepository.findById(id).orElse(null);
+    }
 }
