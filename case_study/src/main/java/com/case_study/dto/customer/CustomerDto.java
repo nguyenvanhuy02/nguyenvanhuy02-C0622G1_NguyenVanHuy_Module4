@@ -1,15 +1,13 @@
-package com.case_study.model.customer;
+package com.case_study.dto.customer;
 
 import com.case_study.model.contract.Contract;
+import com.case_study.model.customer.CustomerType;
+import com.case_study.model.customer.Gender;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-public class Customer {
+public class CustomerDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -24,23 +22,15 @@ public class Customer {
 
     private String address;
 
-    @Column(name = "status", columnDefinition = "int default 1")
-    private Integer status;
+    private Integer status = 1;
 
-
-    @ManyToOne
-    @JoinColumn(name = "gender_id" , referencedColumnName = "id")
     private Gender gender;
 
-
-    @ManyToOne
-    @JoinColumn(name = "customer_type_id" , referencedColumnName = "id")
     private CustomerType customerType;
 
-    @OneToMany(mappedBy = "customer")
     private Set<Contract> contracts;
 
-    public Customer() {
+    public CustomerDto() {
     }
 
     public int getId() {

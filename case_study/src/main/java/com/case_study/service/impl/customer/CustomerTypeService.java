@@ -1,8 +1,8 @@
-package com.case_study.service.impl;
+package com.case_study.service.impl.customer;
 
 import com.case_study.model.customer.CustomerType;
-import com.case_study.repository.ICustomerTypeRepository;
-import com.case_study.service.ICustomerTypeService;
+import com.case_study.repository.customer.ICustomerTypeRepository;
+import com.case_study.service.customer.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

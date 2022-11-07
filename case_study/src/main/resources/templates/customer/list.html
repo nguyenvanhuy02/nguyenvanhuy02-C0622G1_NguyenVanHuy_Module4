@@ -46,6 +46,9 @@
         <th>Email</th>
         <th>Address</th>
         <th>CustomerType</th>
+        <th>Edit</th>
+        <th>View</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -53,14 +56,15 @@
         <td th:text="${customerPage.number*5+rowStat.count}"></td>
         <td th:text="${customer.getName()}"></td>
         <td th:text="${customer.getDateOfBirth()}"></td>
-        <td th:text="${customer.getGender()}"></td>
+        <td th:text="${customer.gender.getName()}"></td>
         <td th:text="${customer.getIdCard()}"></td>
         <td th:text="${customer.getPhoneNumber()}"></td>
         <td th:text="${customer.getEmail()}"></td>
         <td th:text="${customer.getAddress()}"></td>
         <td th:text="${customer.getCustomerType().getName()}"></td>
-<!--        <td><a th:href="@{/{id}/edit(id=${blog.getId()})}" class="btn btn-primary">Edit</a></td>-->
-<!--        <td><a th:href="@{/{id}/delete(id=${blog.getId()})}" class="btn btn-secondary" >Delete</a></td>-->
+        <td><a th:href="@{customer/{id}/edit(id=${customer.getId()})}" class="btn btn-primary">Edit</a></td>
+        <td><a th:href="@{customer/{id}/view(id=${customer.getId()})}" class="btn btn-primary">View</a></td>
+        <td><a th:href="@{customer/{id}/delete(id=${customer.getId()})}" class="btn btn-primary" >Delete</a></td>
     </tr>
     </tbody>
 </table>

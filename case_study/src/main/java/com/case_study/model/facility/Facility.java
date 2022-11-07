@@ -11,7 +11,6 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
     private Integer area;
     private Double cost;
@@ -21,6 +20,8 @@ public class Facility {
     private Double poolArea;
     private Integer numberOfFloors;
     private String facilityFree;
+    @Column(name = "status", columnDefinition = "int default 1")
+    private Integer status;
 
     @ManyToOne
     @JoinColumn(name = "rent_type_id",referencedColumnName = "id")
@@ -34,22 +35,6 @@ public class Facility {
     private Set<Contract> contracts;
 
     public Facility() {
-    }
-
-    public Facility(int id, String name, Integer area, Double cost, Integer maxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, String facilityFree, RentType rentType, FacilityType facilityType, Set<Contract> contracts) {
-        this.id = id;
-        this.name = name;
-        this.area = area;
-        this.cost = cost;
-        this.maxPeople = maxPeople;
-        this.standardRoom = standardRoom;
-        this.descriptionOtherConvenience = descriptionOtherConvenience;
-        this.poolArea = poolArea;
-        this.numberOfFloors = numberOfFloors;
-        this.facilityFree = facilityFree;
-        this.rentType = rentType;
-        this.facilityType = facilityType;
-        this.contracts = contracts;
     }
 
     public int getId() {
@@ -130,6 +115,14 @@ public class Facility {
 
     public void setFacilityFree(String facilityFree) {
         this.facilityFree = facilityFree;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public RentType getRentType() {

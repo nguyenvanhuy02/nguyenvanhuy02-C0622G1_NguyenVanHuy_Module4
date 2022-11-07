@@ -1,8 +1,8 @@
-package com.case_study.service.impl;
+package com.case_study.service.impl.customer;
 
 import com.case_study.model.customer.Customer;
-import com.case_study.repository.ICustomerRepository;
-import com.case_study.service.ICustomerService;
+import com.case_study.repository.customer.ICustomerRepository;
+import com.case_study.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,5 +33,15 @@ public class CustomerService implements ICustomerService {
     @Override
     public Page<Customer> findByStatus(String status, Pageable pageable) {
         return customerRepository.findPageStatus(status,pageable);
+    }
+
+    @Override
+    public void save(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer findById(Integer id) {
+        return customerRepository.findById(id).orElse(null);
     }
 }

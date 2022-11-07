@@ -1,4 +1,4 @@
-package com.case_study.service;
+package com.case_study.service.customer;
 
 import com.case_study.model.customer.Customer;
 import org.springframework.data.domain.Page;
@@ -13,4 +13,9 @@ public interface ICustomerService {
     Page<Customer> findByNameAndEmail(String name, String email, String status, Pageable pageable);
 
     Page<Customer> findByStatus(String status, Pageable pageable);
+
+    void save(Customer customer);
+
+    Customer findById(Integer id);
+
 }

@@ -5,17 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="349f6983-dff3-4005-a316-185d8e82919d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/controller/CategoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/dto/BlogDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/dto/CategoryDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/resources/templates/category/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/resources/templates/category/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/resources/templates/category/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../ss10_session_cookie_trong_spring/exercise/shopping_product/src/main/java/codegym/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss10_session_cookie_trong_spring/exercise/shopping_product/src/main/java/codegym/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../ss10_session_cookie_trong_spring/exercise/shopping_product/src/main/resources/templates/cart/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss10_session_cookie_trong_spring/exercise/shopping_product/src/main/resources/templates/cart/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/service/ICategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/service/ICategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/service/impl/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/java/blog/app_blog/service/impl/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog/src/main/resources/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/dto/customer/CustomerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/model/customer/Gender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/repository/IGenderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/service/IGenderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/service/impl/GenderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/resources/templates/customer/edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../case_study/src/main/resources/templates/customer/view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/model/customer/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/model/customer/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/service/ICustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/service/ICustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/service/impl/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study/src/main/java/com/case_study/service/impl/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study/src/main/resources/templates/customer/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study/src/main/resources/templates/customer/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../case_study/src/main/resources/templates/customer/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../case_study/src/main/resources/templates/customer/list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +81,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ss7_spring_data_repository/exercise/extend_app_blog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -123,6 +125,7 @@
       <workItem from="1667190447660" duration="4049000" />
       <workItem from="1667199798221" duration="44000" />
       <workItem from="1667199892848" duration="58000" />
+      <workItem from="1667787875657" duration="9000" />
     </task>
     <servers />
   </component>
