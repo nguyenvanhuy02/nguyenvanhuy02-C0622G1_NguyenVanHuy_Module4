@@ -7,7 +7,6 @@ import com.case_study.service.facility.IFacilityTypeService;
 import com.case_study.service.facility.IRentTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -42,14 +41,6 @@ public class FacilityController {
         return "/facility/list";
     }
 
-
-    @GetMapping("/create")
-    public String showCreate(Model model){
-        model.addAttribute("facilityDto",new FacilityDto());
-        model.addAttribute("facilityTypeList",facilityTypeService.findAll());
-        model.addAttribute("rentTypeList",rentTypeService.findAll());
-        return "/facility/create";
-    }
 
     @GetMapping("/create/villa")
     public String showCreateVilla(Model model){
@@ -108,5 +99,11 @@ public class FacilityController {
         facilityService.save(facility);
         redirect.addFlashAttribute("mess","Xoá thành công !");
         return "redirect:/facility";
+    }
+
+    @GetMapping("/{id}/view")
+    public String viewFacility(@PathVariable int id , Model model){
+        model.addAttribute("facility",facilityService.findById(id));
+        return "/facility/view";
     }
 }

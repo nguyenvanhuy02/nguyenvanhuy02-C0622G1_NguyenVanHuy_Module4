@@ -50,6 +50,7 @@
         <th>Max people</th>
         <th>Rent type</th>
         <th>Edit</th>
+        <th>View</th>
         <th>Delete</th>
     </tr>
     </thead>
@@ -62,6 +63,7 @@
         <td th:text="${facility.getMaxPeople()}"></td>
         <td th:text="${facility.getRentType().getName()}"></td>
         <td><a th:href="@{facility/{id}/edit(id=${facility.getId()})}" class="btn btn-primary">Edit</a></td>
+        <td><a th:href="@{facility/{id}/view(id=${facility.getId()})}" class="btn btn-primary">View</a></td>
         <td><a th:href="@{facility/{id}/delete(id=${facility.getId()})}" class="btn btn-primary">Delete</a></td>
     </tr>
     </tbody>
