@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -67,12 +69,21 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String save(CustomerDto customerDto , RedirectAttributes redirect){
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(customerDto,customer);
-        customerService.save(customer);
-        redirect.addFlashAttribute("mess","Thêm mới thành công !");
-        return "redirect:/customer";
+    public String save(@Validated @ModelAttribute("") CustomerDto customerDto ,
+                       BindingResult bindingResult, RedirectAttributes redirect,
+                       Model model){
+        model.addAttribute("genderList",genderRepository.findAll());
+        new CustomerDto().validate(customerDto,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            return "/customer/create";
+        }else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto,customer);
+            customerService.save(customer);
+            redirect.addFlashAttribute("mess","Thêm mới thành công !");
+            return "redirect:/customer";
+        }
+
     }
 
     @GetMapping("/{id}/edit")

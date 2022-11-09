@@ -3,23 +3,26 @@ package com.case_study.dto;
 import com.case_study.model.contract.Contract;
 import com.case_study.model.customer.CustomerType;
 import com.case_study.model.customer.Gender;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-public class CustomerDto {
+public class CustomerDto implements Validator {
 
     private int id;
-
+    @NotBlank(message = "Không được để trống !")
     private String name;
-
+    @NotBlank(message = "Không được để trống !")
     private String dateOfBirth;
-
+    @NotBlank(message = "Không được để trống !")
     private String idCard;
-
+    @NotBlank(message = "Không được để trống !")
     private String phoneNumber;
-
+    @NotBlank(message = "Không được để trống !")
     private String email;
-
+    @NotBlank(message = "Không được để trống !")
     private String address;
 
     private Integer status = 1;
@@ -119,5 +122,16 @@ public class CustomerDto {
 
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customerDto = (CustomerDto) target;
+
     }
 }

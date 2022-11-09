@@ -1,6 +1,7 @@
 package com.case_study.controller;
 
 import com.case_study.dto.ContractDto;
+import com.case_study.dto.CustomerHavingBooking;
 import com.case_study.model.contract.Contract;
 import com.case_study.service.contract.IContractService;
 import com.case_study.service.customer.ICustomerService;
@@ -9,6 +10,7 @@ import com.case_study.service.facility.IFacilityService;
 import com.case_study.service.facility.IFacilityTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/contract")
@@ -58,4 +62,15 @@ public class ContractController {
         return "redirect:/contract";
     }
 
+    @GetMapping("/list")
+    private String listContract(@PageableDefault(value = 5) Pageable pageable,
+                                Model model){
+        Page<CustomerHavingBooking> contractPages = contractService.findAllCustomerUseContract(pageable);
+        System.out.println(contractPages.getContent().get(0).getCustomerName());
+        System.out.println(contractPages.getContent().get(0).getFacilityName());
+
+//        Page<CustomerHavingBooking> list = contractService.findAllCustomerUseContract(pageable);
+        model.addAttribute("listContract", contractPages);
+        return "/contract/list_contract";
+    }
 }

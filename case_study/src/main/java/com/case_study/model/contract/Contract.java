@@ -19,6 +19,8 @@ public class Contract {
     private String endDate;
 
     private Double deposit;
+    @Column(name = "status", columnDefinition = "int default 1")
+    private Integer status;
 
     @OneToMany(mappedBy = "contract")
     private Set<ContractDetail>contractDetails;
@@ -111,5 +113,13 @@ public class Contract {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

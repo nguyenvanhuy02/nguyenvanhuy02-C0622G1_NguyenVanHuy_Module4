@@ -22,6 +22,8 @@ public class ContractDto {
 
     private Facility facility;
 
+    private Integer status=1;
+
     public ContractDto() {
     }
 
@@ -79,5 +81,13 @@ public class ContractDto {
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
