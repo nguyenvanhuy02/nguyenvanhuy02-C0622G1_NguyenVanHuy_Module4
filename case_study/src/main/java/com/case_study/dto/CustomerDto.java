@@ -6,23 +6,24 @@ import com.case_study.model.customer.Gender;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 public class CustomerDto implements Validator {
 
     private int id;
-    @NotBlank(message = "Không được để trống !")
+    @NotBlank(message = "Tên không được để trống !")
     private String name;
-    @NotBlank(message = "Không được để trống !")
+    @NotBlank(message = "Ngày sinh không được để trống !")
     private String dateOfBirth;
-    @NotBlank(message = "Không được để trống !")
+    @NotBlank(message = "Id card không được để trống !")
     private String idCard;
-    @NotBlank(message = "Không được để trống !")
+    @NotBlank(message = "Số điện thoại không được để trống !")
     private String phoneNumber;
-    @NotBlank(message = "Không được để trống !")
+    @NotBlank(message = "Email không được để trống !")
     private String email;
-    @NotBlank(message = "Không được để trống !")
+    @NotBlank(message = "Địa chỉ không được để trống !")
     private String address;
 
     private Integer status = 1;
@@ -133,5 +134,17 @@ public class CustomerDto implements Validator {
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
 
+        if (!customerDto.getName().matches("^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêếìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{5,50}$") && !customerDto.getName().equals("")){
+            errors.rejectValue("name","name.forbidden","Tên khách hàng không đúng định dạng !");
+        }
+        if (!customerDto.getIdCard().matches("[0-9]{12}") && !customerDto.getIdCard().equals("")){
+            errors.rejectValue("idCard","idCard.forbidden","Id card malformed [X]{12} !");
+        }
+        if (!customerDto.getPhoneNumber().matches("[0][0-9]{9}") && !customerDto.getPhoneNumber().equals("")){
+            errors.rejectValue("phoneNumber","phoneNumber.forbidden","Phone number malformed! (091XXXXXXX) ");
+        }
+        if (!customerDto.getEmail().matches("[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)") && !customerDto.getEmail().equals("")){
+            errors.rejectValue("email","email.forbidden","Email malformed !");
+        }
     }
 }

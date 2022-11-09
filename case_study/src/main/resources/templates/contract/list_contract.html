@@ -24,15 +24,23 @@
         <th>facility</th>
         <th>Start date</th>
         <th>End date</th>
+        <th>Attach facility list</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="customerHavingBooking , rowStat : ${listContract}">
+    <tr th:each="item , rowStat : ${listContract}">
         <td th:text="${listContract.number*5+rowStat.count}"></td>
-        <td th:text="${customerHavingBooking.getCustomerName()}"></td>
-        <td th:text="${customerHavingBooking.getFacilityName()}"></td>
-        <td th:text="${customerHavingBooking.getStartDate()}"></td>
-        <td th:text="${customerHavingBooking.getEndDate()}"></td>
+        <td th:text="${item.getCustomerName()}"></td>
+        <td th:text="${item.getFacilityName()}"></td>
+        <td th:text="${item.getStartDate()}"></td>
+        <td th:text="${item.getEndDate()}"></td>
+        <td>
+
+            <a class="btn btn-primary" th:href="@{/contract/list-facility/{customerId}(customerId = ${item.getCustomerId()})}">
+                                Facility List</a>
+        </td>
+
+
     </tr>
     </tbody>
 </table>
