@@ -6,8 +6,9 @@ import com.case_study.model.customer.Gender;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 public class CustomerDto implements Validator {
@@ -26,6 +27,9 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Địa chỉ không được để trống !")
     private String address;
 
+
+    private List<String> emailList;
+
     private Integer status = 1;
 
     private Gender gender;
@@ -35,6 +39,14 @@ public class CustomerDto implements Validator {
     private Set<Contract> contracts;
 
     public CustomerDto() {
+    }
+
+    public List<String> getEmailList() {
+        return emailList;
+    }
+
+    public void setEmailList(List<String> emailList) {
+        this.emailList = emailList;
     }
 
     public int getId() {
@@ -143,8 +155,24 @@ public class CustomerDto implements Validator {
         if (!customerDto.getPhoneNumber().matches("[0][0-9]{9}") && !customerDto.getPhoneNumber().equals("")){
             errors.rejectValue("phoneNumber","phoneNumber.forbidden","Phone number malformed! (091XXXXXXX) ");
         }
-        if (!customerDto.getEmail().matches("[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)") && !customerDto.getEmail().equals("")){
-            errors.rejectValue("email","email.forbidden","Email malformed !");
+//        if (!customerDto.getEmail().matches("[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)") && !customerDto.getEmail().equals("")){
+//            errors.rejectValue("email","email.forbidden","Email malformed !");
+//        }
+
+        if (("").equals(customerDto.getDateOfBirth())) {
+            errors.rejectValue("dateOfBirth", "birthDate.forbidden", "Date Of Birth not null");
+        } else {
+            int age = LocalDate.now().getYear() - LocalDate.parse(customerDto.dateOfBirth).getYear();
+            if (age < 18 || age > 100) {
+                errors.rejectValue("dateOfBirth", "dateOfBirth.forbidden", "Date Of Birth must be in the correct format (age < 18 || age > 100)");
+            }
         }
+
+        for (String email : customerDto.emailList){
+            if (email.equals(customerDto.getEmail())){
+                errors.rejectValue("email", "email111.forbidden", "Email đã tồn tại");
+            }
+        }
+
     }
 }

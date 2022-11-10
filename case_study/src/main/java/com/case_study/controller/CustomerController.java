@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -61,9 +62,10 @@ public class CustomerController {
 
     @GetMapping("/create")
     public String showCreate(Model model){
-//        model.addAttribute("customerTypeList",customerTypeService.findAll());
+
         model.addAttribute("genderList",genderRepository.findAll());
         model.addAttribute("customerDto",new CustomerDto());
+//        model.addAttribute("customerDto",new CustomerDto());
 
         return "customer/create";
     }
@@ -72,8 +74,16 @@ public class CustomerController {
     public String save(@Validated @ModelAttribute("") CustomerDto customerDto ,
                        BindingResult bindingResult, RedirectAttributes redirect,
                        Model model){
+        List<Customer> customerList = customerService.customerList();
+        List<String> emailList = new ArrayList<>();
+
+        for (Customer item : customerList){
+            emailList.add(item.getEmail());
+        }
+        customerDto.setEmailList(emailList);
         model.addAttribute("genderList",genderRepository.findAll());
-        new CustomerDto().validate(customerDto,bindingResult);
+
+       customerDto.validate(customerDto,bindingResult);
         if (bindingResult.hasFieldErrors()){
             return "/customer/create";
         }else {
