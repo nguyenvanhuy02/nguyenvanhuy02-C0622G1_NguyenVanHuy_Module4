@@ -95,13 +95,22 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute(value = "customerDto")
-                         CustomerDto customerDto , RedirectAttributes redirect){
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(customerDto,customer);
-        customerService.save(customer);
-        redirect.addFlashAttribute("mess","Chỉnh sửa thành công !");
-        return "redirect:/customer";
+    public String update(@Validated
+                         @ModelAttribute(value = "customerDto")
+                         CustomerDto customerDto ,
+                         BindingResult bindingResult,RedirectAttributes redirect,
+                         Model model){
+        model.addAttribute("genderList",genderRepository.findAll());
+        new CustomerDto().validate(customerDto,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            return "/customer/edit";
+        }else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto,customer);
+            customerService.save(customer);
+            redirect.addFlashAttribute("mess","Chỉnh sửa thành công !");
+            return "redirect:/customer";
+        }
     }
 
     @GetMapping("/{id}/view")

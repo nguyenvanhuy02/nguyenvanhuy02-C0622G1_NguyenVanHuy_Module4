@@ -23,10 +23,16 @@
         <div>
             <span>Name</span>
             <input type="text" th:field="*{name}"/>
+            <p style="color:red"
+               th:errors="*{name}"
+               th:if="${#fields.hasErrors('name')}"></p>
         </div>
         <div>
             <span>Date of birth</span>
             <input type="date" th:field="*{dateOfBirth}"/>
+            <p style="color:red"
+               th:errors="*{dateOfBirth}"
+               th:if="${#fields.hasErrors('dateOfBirth')}"></p>
         </div>
         <div>
             <span>Gender</span>
@@ -38,18 +44,30 @@
         <div>
             <span>Id card</span>
             <input type="text" th:field="*{idCard}"/>
+            <p style="color:red"
+               th:errors="*{idCard}"
+               th:if="${#fields.hasErrors('idCard')}"></p>
         </div>
         <div>
             <span>Phone number</span>
             <input type="text" th:field="*{phoneNumber}"/>
+            <p style="color:red"
+               th:errors="*{phoneNumber}"
+               th:if="${#fields.hasErrors('phoneNumber')}"></p>
         </div>
         <div>
             <span>Email</span>
             <input type="text" th:field="*{email}"/>
+            <p style="color:red"
+               th:errors="*{email}"
+               th:if="${#fields.hasErrors('email')}"></p>
         </div>
         <div>
             <span>Address</span>
             <input type="text" th:field="*{address}"/>
+            <p style="color:red"
+               th:errors="*{address}"
+               th:if="${#fields.hasErrors('address')}"></p>
         </div>
         <div>
             <span>CustomerType</span>

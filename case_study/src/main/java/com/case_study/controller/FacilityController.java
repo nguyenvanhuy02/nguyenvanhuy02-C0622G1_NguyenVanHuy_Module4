@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -67,7 +69,23 @@ public class FacilityController {
     }
 
     @PostMapping("/save")
-    public String save(FacilityDto facilityDto , RedirectAttributes redirect){
+    public String save(@Validated @ModelAttribute("") FacilityDto facilityDto ,
+                       BindingResult bindingResult, RedirectAttributes redirect,
+                       Model model){
+        model.addAttribute("facilityTypeList",facilityTypeService.findAll());
+        model.addAttribute("rentTypeList",rentTypeService.findAll());
+        new FacilityDto().validate(facilityDto,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            if (facilityDto.getFacilityType().getId() == 1){
+                return "/facility/create_villa";
+            }
+            if (facilityDto.getFacilityType().getId() == 2){
+                return "/facility/create_house";
+            }
+            if (facilityDto.getFacilityType().getId() == 3){
+                return "/facility/create_room";
+            }
+        }
         Facility facility = new Facility();
         BeanUtils.copyProperties(facilityDto,facility);
         facilityService.save(facility);
