@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<meta charset="UTF-8">
+<title>Title</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<h3>Thống kê đơn hàng  </h3>
+<div class="notify"style="color: red">
+  <div th:if="${mess}">
+    <span th:text="${mess}"></span>
+  </div>
+</div>
+
+<table id = "blog" class="table table-sm , bg-body">
+  <thead>
+  <tr class="bg-warning">
+    <th>STT</th>
+    <th>Mã đơn hàng</th>
+    <th>Tên sản phẩm</th>
+    <th>Giá(USD)</th>
+    <th>Loại sản phẩm</th>
+    <th>Ngày mua</th>
+    <th>Số lượng</th>
+    <th>Chỉnh sửa</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="donHang , rowStat : ${dSDonHang}">
+    <td th:text="${dSDonHang.number*5+rowStat.count}"></td>
+    <td th:text="${donHang.getMaDonHang()}"></td>
+    <td th:text="${donHang.getSanPham().getTenSP()}"></td>
+    <td th:text="${donHang.getSanPham().getGiaSP()}"></td>
+    <td th:text="${donHang.getSanPham().getLoaiSanPham().getTenLoaiSP()}"></td>
+    <td th:text="${donHang.getNgayMua()}"></td>
+    <td th:text="${donHang.getSoLuong()}"></td>
+      <td><a th:href="@{donhang/{id}/edit(id=${donHang.getMaDonHang()})}" class="btn btn-primary">Sửa</a></td>
+  </tr>
+  </tbody>
+</table>
+
+<div>
+    <span>
+        <a th:if="${dSDonHang.hasPrevious()}"
+           th:href="@{/donhang(page=${dSDonHang.number}-1)}">
+            Previous
+        </a>
+    </span>
+
+  <span th:text="${dSDonHang.number+1}"></span>/
+  <span th:text="${dSDonHang.totalPages}"></span>
+
+  <span>
+        <a th:if="${dSDonHang.hasNext()}"
+           th:href="@{/donhang(page=${dSDonHang.number+1})}">
+            Next
+        </a>
+    </span>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+</html>

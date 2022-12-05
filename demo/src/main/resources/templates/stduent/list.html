@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<div>
+    <form action="/student">
+        <input style="width: 20%" type="text" name="name" placeholder="Name" th:value="${name}">
+
+        <select style="width: 20%" th:name="nameClass">
+            <option th:if="${nameClass != ''}" th:value="${nameClass}" th:text="${nameClass}"></option>
+            <option value="">-All-</option>
+            <option th:each="item : ${classList}" th:value="${item.nameClass}" th:text="${item.nameClass}"></option>
+        </select>
+
+        <input type="submit" value="Search" style="width: 10%">
+    </form>
+</div>
+
+<table border="1px">
+    <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Class</th>
+    </tr>
+    <tr th:each="student,row : ${studentList}">
+        <td th:text="${studentList.number*5 + row.count}"></td>
+        <td th:text="${student.getName()}"></td>
+        <td th:text="${student.getAge()}"></td>
+        <td th:text="${student.getClassStudent().getNameClass()}"></td>
+    </tr>
+</table>
+<div>
+    <span>
+        <a th:if="${studentList.hasPrevious()}"
+           th:href="@{/student(page=${studentList.number}-1, name = ${name}, nameClass = ${nameClass})}">
+            Previous
+        </a>
+    </span>
+
+    <span th:text="${studentList.number+1}"></span>/
+    <span th:text="${studentList.totalPages}"></span>
+
+    <span>
+        <a th:if="${studentList.hasNext()}"
+           th:href="@{/student(page=${studentList.number+1}, name = ${name}, nameClass = ${nameClass})}">
+            Next
+        </a>
+    </span>
+</div>
+</body>
+</html>
